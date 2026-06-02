@@ -271,6 +271,7 @@ http://localhost:3000
 
 Add screenshots showing:
 
+- Frontend browser page
 - Kubernetes Deployments
 - Running Pods
 - Passenger Processing UI
