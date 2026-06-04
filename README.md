@@ -198,7 +198,9 @@ Planned enhancements include:
 
 ### Prometheus Targets
 
+![Prometheus](docs/screenshots/prometheus1.png)
 ![Prometheus](docs/screenshots/prometheus2.png)
+
 
 ### Grafana Dashboard
 
