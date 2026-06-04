@@ -194,7 +194,7 @@ Planned enhancements include:
 ![Kubernetes Pods](docs/screenshots/pods.png)
 
 ### GitHub Actions CI
-
+![GitHub Actions CI](docs/screenshots/ci.png)
 
 ### Prometheus Targets
 
