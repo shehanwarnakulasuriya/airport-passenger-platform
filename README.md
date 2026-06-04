@@ -1,107 +1,113 @@
 # Airport Passenger Processing Platform
 
-A cloud-native three-tier application demonstrating modern platform engineering, Kubernetes, observability, and DevOps practices.
+A cloud-native three-tier application designed to demonstrate modern Platform Engineering, Kubernetes, Observability, DevOps, and Solution Architecture practices.
 
-This project simulates an airport passenger processing platform where users can view passenger information and perform passenger check-in operations through a web interface.
+The platform simulates an airport passenger processing system that allows users to view passenger information and perform passenger check-in operations through a web-based interface while showcasing cloud-native deployment, monitoring, and operational capabilities.
 
 ---
 
-## Architecture Overview
+## Project Objectives
 
-The platform consists of three application layers deployed on Kubernetes:
+This project was built to demonstrate practical experience with:
+
+- Kubernetes Platform Engineering
+- Cloud-Native Application Architecture
+- Docker Containerization
+- Continuous Integration (CI)
+- Service Discovery and Configuration Management
+- Observability using Prometheus and Grafana
+- Operational Troubleshooting and Monitoring
+
+---
+
+## Architecture
+
+![Airport Passenger Platform Architecture](docs/screenshots/architecture.png)
+
+### High-Level Flow
 
 ```text
 Browser
    │
    ▼
-Frontend (React + Nginx)
+Frontend Service (NodePort)
    │
    ▼
-Backend API (Python Flask)
+React + Nginx Frontend Pods
+   │
+   ▼
+Backend Service (ClusterIP)
+   │
+   ▼
+Python Flask API Pods
+   │
+   ▼
+PostgreSQL Service
    │
    ▼
 PostgreSQL Database
 ```
 
-Observability Layer:
+### Observability
 
 ```text
-Prometheus
-   │
-   ▼
 Backend Metrics (/metrics)
-
-Grafana
-   │
-   ▼
-Dashboards & Monitoring
+          │
+          ▼
+      Prometheus
+          │
+          ▼
+        Grafana
 ```
+
+Detailed architecture documentation:
+
+📖 [Architecture Design Document](docs/architecture.md)
 
 ---
 
 ## Technology Stack
 
-### Frontend
-
-- React
-- Vite
-- Nginx
-
-### Backend
-
-- Python
-- Flask
-- Flask-CORS
-- Prometheus Flask Exporter
-
-### Database
-
-- PostgreSQL
-
-### Platform
-
-- Docker
-- Kubernetes
-- Minikube
-
-### DevOps
-
-- Git
-- GitHub
-- GitHub Actions
-
-### Observability
-
-- Prometheus
-- Grafana
+| Layer | Technology |
+|---------|---------|
+| Frontend | React, Vite, Nginx |
+| Backend | Python Flask, Flask-CORS |
+| Database | PostgreSQL |
+| Containerization | Docker |
+| Platform | Kubernetes, Minikube |
+| CI | GitHub Actions |
+| Monitoring | Prometheus |
+| Visualization | Grafana |
 
 ---
 
-## Key Features
+## Key Capabilities
 
 ### Passenger Management
 
-- View passenger records
-- Passenger check-in workflow
+- Passenger retrieval
+- Passenger status visibility
+- Passenger check-in operations
 - REST API integration
 
-### Kubernetes Platform Features
+### Kubernetes Platform Engineering
 
 - Deployments
 - Services
 - ConfigMaps
 - Secrets
 - PersistentVolumeClaims
-- Health Probes
+- Readiness Probes
+- Liveness Probes
 - Scaling
 
 ### Observability
 
-- Application Metrics
-- Prometheus Scraping
+- Prometheus Metrics Collection
 - Grafana Dashboards
-- Health Endpoints
-- Operational Monitoring
+- Application Health Monitoring
+- Request Metrics
+- Resource Utilization Monitoring
 
 ---
 
@@ -111,194 +117,140 @@ Dashboards & Monitoring
 airport-passenger-platform/
 │
 ├── frontend/
-│   ├── src/
-│   ├── Dockerfile
-│   └── nginx.conf
-│
 ├── backend/
-│   ├── app.py
-│   ├── db.py
-│   ├── requirements.txt
-│   └── Dockerfile
-│
 ├── k8s/
-│   ├── namespace.yaml
-│   ├── configmap.yaml
-│   ├── secret.yaml
-│   ├── postgres-pvc.yaml
-│   ├── postgres-deployment.yaml
-│   ├── postgres-service.yaml
-│   ├── backend-deployment.yaml
-│   ├── backend-service.yaml
-│   ├── backend-servicemonitor.yaml
-│   ├── frontend-deployment.yaml
-│   └── frontend-service.yaml
-│
 ├── docs/
 │   ├── architecture.md
 │   └── screenshots/
 │
-└── .github/
-    └── workflows/
-        └── ci.yml
+├── .github/
+│   └── workflows/
+│
+└── README.md
 ```
 
 ---
 
-## Skills Demonstrated
+## Current State
 
-This project demonstrates practical experience in:
+### Implemented
 
-### Solution Design
+✅ Docker Containerization
 
-- Three-tier architecture
-- Service-to-service communication
-- API design patterns
-- Architectural documentation
+✅ Kubernetes Deployments
 
-### Platform Engineering
+✅ Service Discovery
 
-- Kubernetes workload management
-- Configuration management
-- Secrets management
-- Persistent storage
+✅ ConfigMaps & Secrets
 
-### DevOps
+✅ Persistent Storage
 
-- Docker image creation
-- CI validation pipelines
-- Git workflows
-- Deployment automation
+✅ Prometheus Metrics Collection
 
-### Reliability Engineering
+✅ Grafana Dashboards
 
-- Liveness probes
-- Readiness probes
-- Operational troubleshooting
-- Scaling workloads
+✅ GitHub Actions Continuous Integration (CI)
 
-### Observability
+✅ Operational Monitoring
 
-- Metrics collection
-- Application monitoring
-- Dashboard creation
-- Operational visibility
+### CI Strategy
+
+GitHub Actions automatically validates:
+
+- Backend Docker image builds
+- Frontend Docker image builds
+
+Current implementation focuses on **Continuous Integration (CI)**.
+
+Deployment remains a manual process using Minikube and kubectl.
 
 ---
 
-## Architecture Decisions
+## Future State
 
-### Why Kubernetes?
+Planned enhancements include:
 
-Kubernetes provides:
-
-- Automated deployment
-- Service discovery
-- Scaling
-- Health monitoring
-- Declarative infrastructure
-
-### Why PostgreSQL?
-
-PostgreSQL provides:
-
-- Reliable persistence
-- ACID compliance
-- Relational data modelling
-
-### Why Prometheus and Grafana?
-
-Prometheus and Grafana provide:
-
-- Real-time metrics
-- Operational visibility
-- Capacity monitoring
-- Performance insights
-
----
-
-## Local Development
-
-### Start Minikube
-
-```bash
-minikube start --driver=docker
-```
-
-### Deploy Platform
-
-```bash
-kubectl apply -f k8s/
-```
-
-### Verify Resources
-
-```bash
-kubectl get all -n airport-platform
-```
-
-### Access Frontend
-
-```bash
-minikube service frontend-service -n airport-platform
-```
-
----
-
-## Monitoring
-
-### Backend Metrics
-
-```bash
-curl http://localhost:5000/metrics
-```
-
-### Access Grafana
-
-```bash
-kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
-```
-
-Open:
-
-```text
-http://localhost:3000
-```
+- GitHub Actions CI/CD Pipeline
+- Terraform Infrastructure as Code
+- Kubernetes Ingress Controller
+- AWS EKS Deployment
+- Azure AKS Deployment
+- Managed PostgreSQL
+- Horizontal Pod Autoscaling (HPA)
+- AlertManager Notifications
+- Centralized Logging
+- Container Security Scanning
 
 ---
 
 ## Screenshots
 
-Add screenshots showing:
+### Application UI
 
-- Frontend browser page
-- Kubernetes Deployments
-- Running Pods
-- Passenger Processing UI
-- GitHub Actions Pipeline
-- Prometheus Targets
-- Grafana Dashboards
+![Frontend UI](docs/screenshots/frontend.png)
+
+### Kubernetes Deployment
+
+![Kubernetes Pods](docs/screenshots/pods.png)
+
+### GitHub Actions CI
+
+
+### Prometheus Targets
+
+![Prometheus](docs/screenshots/prometheus2.png)
+
+### Grafana Dashboard
+
+![Grafana Dashboard](docs/screenshots/grafana.png)
 
 ---
 
-## Future Enhancements
+## Skills Demonstrated
 
-- Kubernetes Ingress
-- Helm Charts
-- Terraform
-- Azure AKS Deployment
-- AWS EKS Deployment
-- Horizontal Pod Autoscaling
-- Alerting & Notifications
-- Centralised Logging
+### Solution Architecture
+
+- Three-Tier Architecture
+- API-Led Design
+- Service Communication Patterns
+- Architecture Documentation
+
+### Platform Engineering
+
+- Kubernetes Workload Management
+- Configuration Management
+- Service Discovery
+- Persistent Storage
+
+### DevOps
+
+- Docker Image Creation
+- GitHub Actions CI
+- Git Workflows
+- Build Validation
+
+### Reliability Engineering
+
+- Health Probes
+- Scaling
+- Monitoring
+- Operational Troubleshooting
+
+### Observability
+
+- Prometheus Metrics
+- Grafana Dashboards
+- Application Monitoring
+- Platform Visibility
 
 ---
 
 ## Learning Outcomes
 
-Through this project I developed hands-on experience with:
+This project provided hands-on experience with:
 
 - Kubernetes
+- Docker
 - Platform Engineering
 - Cloud-Native Architecture
 - DevOps Practices
@@ -310,6 +262,9 @@ Through this project I developed hands-on experience with:
 
 ## Author
 
-Shehan Warnakulasuriya
+**Shehan Warnakulasuriya**
 
-Senior Systems Analyst Specialist | Solution Design | AWS Certified Solutions Architect | Cloud & Platform Engineering
+Senior Systems Analyst Specialist  
+AWS Certified Solutions Architect – Associate  
+Cloud & Platform Engineering  
+Aspiring Solutions Architect
